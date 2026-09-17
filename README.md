@@ -156,5 +156,12 @@ the same API in a container.
 
 ## What comes next
 
-This is project 00 of a series. Project 01 rebuilds the same network in PyTorch, so every line of
-framework code maps to something written by hand here. See [Next steps](docs/10-next-steps.md).
+This is project 00 of a series.
+
+| # | Project | What it is |
+|---|---------|------------|
+| 00 | dl-foundations (this repo) | The full network as a package, one concept per module |
+| 01 | [dl-notebooks](https://github.com/brian-rey-development/dl-notebooks) | Jupyter notebooks that start earlier and go slower: the 1943 neuron, the perceptron, gradient descent, one idea at a time |
+| 02 | PyTorch rebuild (planned) | The same network in PyTorch, so every line of framework code maps to something written by hand here |
+
+See [Next steps](docs/10-next-steps.md) for what is missing between this and a real framework.
