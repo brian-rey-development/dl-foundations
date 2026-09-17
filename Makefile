@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help install run serve figures test lint format typecheck check docker clean
+.PHONY: help install run serve notebooks figures test lint format typecheck check docker clean
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -14,6 +14,9 @@ run: ## Train the network, save plots and the model artifact to outputs/
 serve: ## Serve the trained model with FastAPI on http://127.0.0.1:8000 (docs at /docs)
 	uv run foundations-api
 
+notebooks: ## Open the interactive marimo notebooks (one per guide)
+	uv run marimo edit notebooks/
+
 figures: ## Regenerate every figure used in docs/
 	uv run python scripts/make_figures.py
 
@@ -21,14 +24,14 @@ test: ## Run the test suite
 	uv run pytest
 
 lint: ## Lint with ruff
-	uv run ruff check src tests
+	uv run ruff check src tests scripts notebooks
 
 format: ## Format code with ruff
-	uv run ruff format src tests
-	uv run ruff check --fix src tests
+	uv run ruff format src tests scripts notebooks
+	uv run ruff check --fix src tests scripts notebooks
 
 typecheck: ## Type-check with ty
-	uv run ty check src tests
+	uv run ty check src tests scripts notebooks
 
 check: lint typecheck test ## Run every quality gate
 

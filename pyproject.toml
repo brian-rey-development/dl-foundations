@@ -30,6 +30,9 @@ dev = [
     "ruff>=0.16.8",
     "ty>=0.0.81",
 ]
+notebooks = [
+    "marimo>=0.24.2",
+]
 
 [tool.ruff]
 line-length = 100
@@ -38,5 +41,11 @@ target-version = "py313"
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "ANN"]
 
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*" = ["ANN", "B018", "E501"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.uv]
+default-groups = ["dev", "notebooks"]

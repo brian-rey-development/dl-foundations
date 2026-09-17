@@ -13,8 +13,8 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-      - run: uv sync --locked
-      - run: uv run ruff check src tests
-      - run: uv run ruff format --check src tests
-      - run: uv run ty check src tests
+      - run: uv sync --locked --all-groups
+      - run: uv run ruff check src tests scripts notebooks
+      - run: uv run ruff format --check src tests scripts notebooks
+      - run: uv run ty check src tests scripts notebooks
       - run: uv run pytest
