@@ -66,6 +66,9 @@ flowchart TB
     cli --> viz["visualization/"]
 ```
 
+Guides 01 through 08 each have a companion notebook in `notebooks/` (`make notebooks`) that turns
+the experiments at the end of the guide into sliders.
+
 Dependencies only point downward: `nn/` does not know `training/` exists, and `training/` does not
 know the API exists. You can read each layer without understanding the one above it.
 

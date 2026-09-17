@@ -19,6 +19,7 @@ Requires [uv](https://docs.astral.sh/uv/). Python 3.13 is installed automaticall
 uv sync            # install everything
 make run           # train, print metrics, write plots and the model to outputs/
 make serve         # serve the trained model at http://127.0.0.1:8000/docs
+make notebooks     # open the interactive notebooks
 make check         # lint, type-check, test
 ```
 
@@ -62,6 +63,22 @@ implements it, and ends with experiments to run.
 | 09 | [Persistence and serving](docs/09-persistence-and-serving.md) | `persistence.py`, `api/` |
 | 10 | [Next steps](docs/10-next-steps.md) | - |
 
+## Notebooks
+
+`notebooks/` has one [marimo](https://marimo.io) notebook per guide, 01 through 08. Each one imports the
+package and turns the guide's experiments into sliders: change the noise and watch the dataset move,
+change the learning rate and watch the loss curve, flip a switch that breaks the backward pass and
+watch the gradient check catch it.
+
+```bash
+make notebooks                              # opens the whole folder
+uv run marimo edit notebooks/06_gradient_descent.py
+```
+
+marimo notebooks are plain Python files, so they diff cleanly in git and run headless
+(`tests/test_notebooks.py` executes every one of them in CI). Cells re-run automatically when
+something they depend on changes, so there is no stale state to reason about.
+
 ## Project layout
 
 ```
@@ -77,7 +94,8 @@ implements it, and ends with experiments to run.
 │   ├── experiment.py    wires data + network + training into one run
 │   ├── persistence.py   save and load a trained model (.npz)
 │   └── cli.py           `foundations` command
-├── tests/               mirrors src/, 38 tests
+├── notebooks/           one marimo notebook per guide, interactive versions of the experiments
+├── tests/               mirrors src/, plus a headless run of every notebook
 ├── docs/                the guides and their figures
 ├── scripts/             make_figures.py regenerates every figure in docs/
 ├── outputs/             plots and model.npz written by `make run` (gitignored)
@@ -133,6 +151,7 @@ the same API in a container.
 | [ty](https://docs.astral.sh/ty/) | Type checking |
 | [pytest](https://docs.pytest.org/) | Tests |
 | [FastAPI](https://fastapi.tiangolo.com/) | Serving |
+| [marimo](https://marimo.io) | Reactive notebooks stored as plain Python |
 | pre-commit | Runs ruff and keeps `uv.lock` in sync on every commit |
 
 ## What comes next
